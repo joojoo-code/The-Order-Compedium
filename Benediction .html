@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Order — Compendium</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=EB+Garamond:wght@400;500&display=swap');
+
+:root{
+--cover:#3d2848;
+--cover-dark:#281a30;
+--gold:#c9a75b;
+--gold-soft:#e0c982;
+--paper:#f5eddb;
+--ink:#34273a;
+--muted:#756a70;
+}
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+min-height:100vh;
+padding:28px 12px 70px;
+display:grid;
+place-items:center;
+background:
+radial-gradient(
+circle at 50% 20%,
+rgba(255,255,255,.28),
+transparent 34%
+),
+#d7d0c7;
+color:var(--ink);
+font-family:"EB Garamond",Georgia,serif;
+}
+
+.book-stage{
+width:min(650px,100%);
+perspective:1800px;
+}
+
+.book{
+position:relative;
+width:100%;
+aspect-ratio:3/4;
+max-height:760px;
+transform-style:preserve-3d;
+}
+
+.book::before{
+content:"";
+position:absolute;
+inset:7px -10px -7px 10px;
+border-radius:4px 13px 13px 4px;
+background:#35223e;
+box-shadow:
+0 24px 45px rgba(35,24,39,.28),
+0 5px 12px rgba(35,24,39,.16);
+}
+
+/* =========================================
+COVER OPENING / PAGE TURN
+========================================= */
+
+#open{
+position:absolute;
+opacity:0;
+pointer-events:none;
+}
+
+/* =========================================
+GENERAL PAGE
+========================================= */
+
+.page{
+position:absolute;
+inset:0;
+
+padding:50px 48px 62px;
+
+border:1px solid #b9a47e;
+border-radius:2px 10px 10px 2px;
+
+background:
+radial-gradient(
+circle at 75% 12%,
+rgba(255,255,255,.48),
+transparent 30%
+),
+linear-gradient(
+90deg,
+rgba(145,110,65,.08),
+transparent 10%,
+transparent 90%,
+rgba(145,110,65,.12)
+),
+var(--paper);
+
+color:var(--ink);
+
+box-shadow:
+inset 0 0 35px rgba(120,90,55,.08);
+
+display:none;
+flex-direction:column;
+
+overflow:hidden;
+}
+
+/* =========================================
+PAGE I — CENTERED INTRODUCTION
+========================================= */
+
+.page[data-page="1"]{
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.page.active{
+display:flex;
+}
+
+.page:not(.page-cover).active{
+animation:pageIn .55s ease;
+}
+
+@keyframes pageIn{
+from{
+opacity:0;
+transform:translateX(12px);
+}
+
+to{
+opacity:1;
+transform:translateX(0);
+}
+}
+
+/*
+
+/* =========================================
+PAGE VII — CENTERED BLESSING 
+========================================= */
+
+.page[data-page="7"]{
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+/*
+
+/*
+=========================================
+COVER
+========================================= */
+
+.page-cover{
+padding:42px;
+z-index:10;
+
+transform-origin:left center;
+transform-style:preserve-3d;
+
+backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
+
+transition:
+transform 1.25s cubic-bezier(.65,.05,.35,1),
+box-shadow 1.25s ease;
+
+display:flex;
+
+background:
+radial-gradient(
+circle at 30% 18%,
+rgba(255,255,255,.08),
+transparent 24%
+),
+radial-gradient(
+circle at 78% 82%,
+rgba(0,0,0,.14),
+transparent 30%
+),
+linear-gradient(
+135deg,
+rgba(255,255,255,.035),
+transparent 35%,
+rgba(0,0,0,.08)
+),
+var(--cover);
+
+border:1px solid rgba(224,201,130,.45);
+
+color:var(--gold-soft);
+
+box-shadow:
+inset 0 0 0 7px rgba(34,20,42,.25),
+inset 0 0 0 8px rgba(224,201,130,.12),
+8px 0 20px rgba(25,16,30,.28);
+
+align-items:center;
+justify-content:center;
+text-align:center;
+
+cursor:pointer;
+}
+
+.frame{
+position:absolute;
+inset:25px;
+border:1px solid rgba(201,167,91,.72);
+}
+
+.corner{
+position:absolute;
+
+color:var(--gold);
+
+font-family:Georgia,serif;
+font-size:19px;
+line-height:1;
+}
+
+.tl{
+top:17px;
+left:17px;
+}
+
+.tr{
+top:17px;
+right:17px;
+transform:rotate(90deg);
+}
+
+.bl{
+bottom:17px;
+left:17px;
+transform:rotate(-90deg);
+}
+
+.br{
+bottom:17px;
+right:17px;
+transform:rotate(180deg);
+}
+
+.cover-ornament{
+margin-bottom:32px;
+
+font-size:42px;
+color:var(--gold);
+
+text-shadow:
+0 1px 1px rgba(0,0,0,.45);
+}
+
+.cover-title{
+margin:0;
+
+font-family:"Cormorant Garamond",Georgia,serif;
+
+font-size:60px;
+font-weight:600;
+
+letter-spacing:9px;
+text-indent:9px;
+
+text-transform:uppercase;
+
+color:var(--gold-soft);
+
+text-shadow:
+0 1px 0 rgba(255,255,255,.08),
+0 3px 4px rgba(0,0,0,.38);
+}
+
+.cover-rule{
+width:150px;
+height:1px;
+
+margin:27px 0 23px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+var(--gold),
+transparent
+);
+}
+
+.cover-symbol{
+font-size:24px;
+color:var(--gold);
+}
+
+/* =========================================
+3D COVER OPENING
+========================================= */
+
+.page-cover.opened{
+transform:rotateY(-180deg);
+box-shadow:-12px 0 25px rgba(35,25,40,.10);
+}
+
+.page-cover.cover-hidden{
+display:none;
+}
+
+/* =========================================
+TAP TO OPEN
+========================================= */
+
+.cover-note{
+position:absolute;
+
+bottom:36px;
+left:0;
+right:0;
+
+color:rgba(224,201,130,.62);
+
+font-size:12px;
+letter-spacing:1.5px;
+
+text-transform:uppercase;
+}
+
+/* =========================================
+PAGE TYPOGRAPHY
+========================================= */
+
+.ornament{
+color:#684f70;
+
+font-size:22px;
+letter-spacing:5px;
+
+text-align:center;
+}
+
+.page-title{
+margin:16px 0 8px;
+
+text-align:center;
+
+font-family:"Cormorant Garamond",Georgia,serif;
+
+font-size:43px;
+font-weight:600;
+
+letter-spacing:4px;
+
+text-transform:uppercase;
+}
+
+.subtitle{
+max-width:470px;
+
+margin:0 auto 22px;
+
+text-align:center;
+
+font-size:16px;
+
+font-style:italic;
+
+color:#665a62;
+}
+
+.rule{
+width:120px;
+height:1px;
+
+margin:4px auto 22px;
+
+background:#c9a75b;
+}
+
+.content{
+flex:1;
+
+overflow:auto;
+
+padding-right:4px;
+
+font-size:17px;
+line-height:1.55;
+}
+
+.content p{
+margin:0 0 14px;
+}
+
+.content ul{
+margin:8px 0 16px;
+
+padding-left:24px;
+}
+
+.content li{
+margin:5px 0;
+}
+
+.section-label{
+margin:18px 0 5px;
+
+color:#684f70;
+
+font-family:"Cormorant Garamond",Georgia,serif;
+
+font-size:22px;
+font-weight:600;
+
+letter-spacing:2px;
+
+text-transform:uppercase;
+}
+
+/* =========================================
+COUNCIL BOX
+========================================= */
+
+.council{
+margin:12px 0 18px;
+
+padding:14px 18px;
+
+border:1px solid rgba(117,90,112,.35);
+
+background:rgba(255,255,255,.24);
+}
+
+.council strong{
+font-family:"Cormorant Garamond",Georgia,serif;
+
+font-size:19px;
+}
+
+/* =========================================
+PAGE NUMBER
+========================================= */
+
+.page-number{
+position:absolute;
+
+bottom:22px;
+left:0;
+right:0;
+
+text-align:center;
+
+font-size:12px;
+
+color:var(--muted);
+
+letter-spacing:2px;
+}
+
+/* =========================================
+NAVIGATION
+========================================= */
+
+.nav{
+position:absolute;
+
+bottom:15px;
+left:18px;
+right:18px;
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+z-index:20;
+}
+
+.nav button{
+border:0;
+
+background:transparent;
+
+color:#684f70;
+
+font-family:"EB Garamond",Georgia,serif;
+
+font-size:15px;
+
+cursor:pointer;
+
+padding:6px 8px;
+}
+
+.nav button:hover{
+color:#34273a;
+}
+
+.nav .disabled{
+visibility:hidden;
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media(max-width:650px){
+
+body{
+padding:15px 8px 70px;
+}
+
+.book{
+aspect-ratio:3/4;
+}
+
+.page{
+padding:35px 25px 60px;
+}
+
+.page-cover{
+padding:28px;
+}
+
+.frame{
+inset:19px;
+}
+
+.corner{
+font-size:17px;
+}
+
+.tl{
+top:12px;
+left:12px;
+}
+
+.tr{
+top:12px;
+right:12px;
+}
+
+.bl{
+bottom:12px;
+left:12px;
+}
+
+.br{
+bottom:12px;
+right:12px;
+}
+
+.cover-ornament{
+margin-bottom:25px;
+font-size:32px;
+}
+
+.cover-title{
+font-size:42px;
+
+letter-spacing:6px;
+text-indent:6px;
+}
+
+.content{
+font-size:16px;
+}
+
+.page-title{
+font-size:34px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="book-stage">
+
+<input type="checkbox" id="open" aria-label="Open The Order">
+
+<div class="book">
+
+<!-- =====================================
+COVER
+===================================== -->
+
+<label
+class="page page-cover active"
+data-page="0"
+for="open"
+aria-label="Open The Order">
+
+<span class="frame"></span>
+
+<span class="corner tl">❦</span>
+<span class="corner tr">❦</span>
+<span class="corner bl">❦</span>
+<span class="corner br">❦</span>
+
+<div class="cover-ornament">
+❦
+</div>
+
+<h1 class="cover-title">
+The Order
+</h1>
+
+<div class="cover-rule"></div>
+
+<div class="cover-symbol">
+❦
+</div>
+
+<div class="cover-note">
+Tap to open
+</div>
+
+</label>
+
+<!-- =====================================
+PAGE I
+===================================== -->
+
+<section class="page" data-page="1">
+
+<div class="ornament">
+❦ ─── ❦
+</div>
+
+<h1 class="page-title">
+The Order
+</h1>
+
+<p class="subtitle">
+A visual compendium of the Order,
+its paths, traditions, and service.
+</p>
+
+<div class="ornament">
+❦
+</div>
+
+<div class="page-number">
+I
+</div>
+
+</section>
+
+<!-- =====================================
+PAGE II — THE ORDER
+===================================== -->
+
+<section class="page" data-page="2">
+
+<div class="ornament">
+❦
+</div>
+
+<h1 class="page-title">
+The Order
+</h1>
+
+<div class="rule"></div>
+
+<div class="content">
+
+<p>
+The Order is a spiritual institution devoted
+to the preservation, practice, and service of
+sacred tradition.
+</p>
+
+<div class="section-label">
+The Council
+</div>
+
+<p>
+The Order is guided by a council whose members
+represent its principal responsibilities.
+</p>
+
+<div class="council">
+
+<strong>
+Four principal seats
+</strong>
+
+<ul>
+<li>Head of the Order</li>
+<li>Leader of the Spiritual Path</li>
+<li>Leader of the Scholarly Path</li>
+<li>Leader of the Keepers</li>
+</ul>
+
+</div>
+
+<p>
+The leaders of the three paths therefore sit
+within the wider leadership of the Order rather
+than standing apart from it.
+</p>
+
+<p>
+The Hands serve across the three paths and do not
+constitute a fourth path of the Order.
+</p>
+
+</div>
+
+<div class="page-number">
+II
+</div>
+
+</section>
+
+<!-- =====================================
+PAGE III — SPIRITUAL PATH
+===================================== -->
+
+<section class="page" data-page="3">
+
+<div class="ornament">
+❦
+</div>
+
+<h1 class="page-title">
+The Spiritual Path
+</h1>
+
+<div class="rule"></div>
+
+<div class="content">
+
+<p>
+The Spiritual Path concerns the practice and
+study of the sacred, including prayer, intercession,
+ritual, and spiritual phenomena.
+</p>
+
+<div class="section-label">
+Its Members
+</div>
+
+<ul>
+<li>Practitioners of spiritual disciplines</li>
+<li>Those trained in ritual and spiritual practice</li>
+<li>Those who study spiritual phenomena</li>
+<li>Those who undertake medium training</li>
+</ul>
+
+<div class="section-label">
+Leadership
+</div>
+
+<p>
+The leader of the Spiritual Path sits on the
+Council of the Order.
+</p>
+
+<div class="section-label">
+The Oracle
+</div>
+
+<p>
+The Oracle is chosen from the Spiritual Path
+and holds a distinct sacred role within it.
+</p>
+
+</div>
+
+<div class="page-number">
+III
+</div>
+
+</section>
+
+<!-- =====================================
+PAGE IV — SCHOLARLY PATH
+===================================== -->
+
+<section class="page" data-page="4">
+
+<div class="ornament">
+❦
+</div>
+
+<h1 class="page-title">
+The Scholarly Path
+</h1>
+
+<div class="rule"></div>
+
+<div class="content">
+
+<p>
+The Scholarly Path is concerned with knowledge:
+its preservation, interpretation, teaching,
+and continued study.
+</p>
+
+<div class="section-label">
+Its Members
+</div>
+
+<ul>
+<li>Scholars and teachers</li>
+<li>Researchers of history and doctrine</li>
+<li>Interpreters of sacred texts</li>
+<li>Preservers of learned tradition</li>
+</ul>
+
+<div class="section-label">
+Leadership
+</div>
+
+<p>
+The leader of the Scholarly Path sits on the
+Council of the Order.
+</p>
+
+</div>
+
+<div class="page-number">
+IV
+</div>
+
+</section>
+
+<!-- =====================================
+PAGE V — KEEPERS
+===================================== -->
+
+<section class="page" data-page="5">
+
+<div class="ornament">
+❦
+</div>
+
+<h1 class="page-title">
+The Keepers
+</h1>
+
+<div class="rule"></div>
+
+<div class="content">
+
+<p>
+The Keepers safeguard the physical places,
+records, and objects entrusted to the Order.
+</p>
+
+<div class="section-label">
+Their Duties
+</div>
+
+<ul>
+<li>Care for sacred places and grounds</li>
+<li>Preserve records and archives</li>
+<li>Safeguard sacred objects and relics</li>
+<li>Guide visitors and pilgrims</li>
+</ul>
+
+<div class="section-label">
+Leadership
+</div>
+
+<p>
+The leader of the Keepers sits on the Council
+of the Order.
+</p>
+
+</div>
+
+<div class="page-number">
+V
+</div>
+
+</section>
+
+<!-- =====================================
+PAGE VI — THE HANDS
+===================================== -->
+
+<section class="page" data-page="6">
+
+<div class="ornament">
+❦
+</div>
+
+<h1 class="page-title">
+The Hands
+</h1>
+
+<div class="rule"></div>
+
+<div class="content">
+
+<p>
+The Hands are members drawn from all three paths
+and entrusted with service beyond the boundaries
+of a single path.
+</p>
+
+<div class="section-label">
+Their Work
+</div>
+
+<ul>
+<li>Travel where the Order's service is needed</li>
+<li>Assist communities and visitors</li>
+<li>Carry out practical missions</li>
+<li>Teach, guide, and provide aid</li>
+</ul>
+
+<p>
+A Hand may come from the Spiritual Path,
+the Scholarly Path, or the Keepers.
+The Hands are therefore a shared service of
+the Order rather than a separate branch.
+</p>
+
+</div>
+
+<div class="page-number">
+VI
+</div>
+
+</section>
+
+<!-- =====================================
+PAGE VII — CLOSING BLESSING
+===================================== -->
+
+<section class="page" data-page="7">
+
+<div class="ornament">
+❦ ─── ❦
+</div>
+
+<h1 class="page-title">
+A Blessing
+</h1>
+
+<p class="subtitle">
+May the gods shine their face upon you.<br>
+May their light find you in the dark,<br>
+their hand guide your path,<br>
+and the truths hidden from you<br>
+be revealed when you are ready to see them.
+</p>
+
+<div class="ornament">
+❦
+</div>
+
+<p class="subtitle" style="margin-top:22px;">
+Walk beneath their grace.
+</p>
+
+<div class="page-number">
+VII
+</div>
+
+</section>
+
+<!-- =====================================
+NAVIGATION
+===================================== -->
+
+<div class="nav">
+
+<button
+id="prev"
+class="disabled"
+type="button">
+← Previous
+</button>
+
+<button
+id="next"
+type="button">
+Next →
+</button>
+
+</div>
+
+</div>
+</div>
+
+<script>
+
+(function(){
+
+const pages = Array.from(
+document.querySelectorAll(".page")
+);
+
+const cover = document.querySelector(
+".page-cover"
+);
+
+const open = document.getElementById(
+"open"
+);
+
+const previous = document.getElementById(
+"prev"
+);
+
+const next = document.getElementById(
+"next"
+);
+
+let current = 0;
+
+function showPage(number){
+
+current = Math.max(
+0,
+Math.min(
+number,
+pages.length - 1
+)
+);
+
+pages.forEach(function(page,index){
+
+page.classList.toggle(
+"active",
+index === current ||
+(index === 0 && current === 1)
+);
+
+});
+
+if(current === 0){
+
+open.checked = false;
+
+cover.classList.remove(
+"opened",
+"cover-hidden"
+);
+
+}
+
+else if(current === 1){
+
+open.checked = true;
+
+cover.classList.remove(
+"cover-hidden"
+);
+
+cover.classList.add(
+"opened"
+);
+
+}
+
+else{
+
+cover.classList.remove(
+"opened"
+);
+
+cover.classList.add(
+"cover-hidden"
+);
+
+}
+
+previous.classList.toggle(
+"disabled",
+current === 0
+);
+
+next.classList.toggle(
+"disabled",
+current === pages.length - 1
+);
+
+if(current === pages.length - 1){
+
+next.textContent = "End";
+
+}
+
+else{
+
+next.textContent = "Next →";
+
+}
+
+}
+
+next.addEventListener(
+"click",
+function(){
+
+if(current < pages.length - 1){
+
+showPage(current + 1);
+
+}
+
+}
+);
+
+previous.addEventListener(
+"click",
+function(){
+
+if(current > 0){
+
+showPage(current - 1);
+
+}
+
+}
+);
+
+cover.addEventListener(
+"click",
+function(event){
+
+if(event.target.closest("button")){
+return;
+}
+
+if(current === 0){
+
+showPage(1);
+
+}
+
+}
+);
+
+showPage(0);
+
+})();
+
+</script>
+
+</body>
+</html>
